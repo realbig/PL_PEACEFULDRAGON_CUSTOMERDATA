@@ -13,20 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'PD_CUSTOMEREXPORT_VERSION', '0.1.0' );
-define( 'PD_CUSTOMEREXPORT_DIR', plugin_dir_path( __FILE__ ) );
-define( 'PD_CUSTOMEREXPORT_URL', plugins_url( '', __FILE__ ) );
+define( 'PD_CUSTOMERDATA_VERSION', '0.1.0' );
+define( 'PD_CUSTOMERDATA_DIR', plugin_dir_path( __FILE__ ) );
+define( 'PD_CUSTOMERDATA_URL', plugins_url( '', __FILE__ ) );
 
 /**
- * Class PD_CustomerExport
+ * Class PD_CustomerData
  *
  * Initiates the plugin.
  *
  * @since   0.1.0
  *
- * @package PD_CustomerExport
+ * @package PD_CustomerData
  */
-class PD_CustomerExport {
+class PD_CustomerData {
+
+	public $primary_page;
 
 	private function __clone() { }
 
@@ -39,7 +41,7 @@ class PD_CustomerExport {
 	 *
 	 * @staticvar Singleton $instance The *Singleton* instances of this class.
 	 *
-	 * @return PD_CustomerExport The *Singleton* instance.
+	 * @return PD_CustomerData The *Singleton* instance.
 	 */
 	public static function getInstance() {
 
@@ -69,6 +71,9 @@ class PD_CustomerExport {
 	 * @since 0.1.0
 	 */
 	public function require_necessities() {
+
+		require_once __DIR__ . '/core/class-pd-customerdata-page.php';
+		$this->primary_page = new PD_CustomerData_Page();
 	}
 
 	/**
@@ -93,3 +98,6 @@ class PD_CustomerExport {
 	function _enqueue_assets() {
 	}
 }
+
+require_once __DIR__ . '/core/pd-customerdata-functions.php';
+PD_CD();
