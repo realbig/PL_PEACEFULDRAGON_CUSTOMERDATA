@@ -192,11 +192,21 @@ class PD_CustomerData_Page {
 		return $data;
 	}
 
+	private function save_categories() {
+
+		if ( isset( $_POST['pd-categories'] ) ) {
+			update_option( 'pd-customerdata-categories', $_POST['pd-categories'] );
+		} else {
+			delete_option( 'pd-customerdata-categories' );
+		}
+	}
+
 	function _do_export() {
 
 		if ( isset( $_POST['pd-customer-data-export'] ) &&
 		     wp_verify_nonce( $_POST['pd-customer-data-export'], 'do-export' )
 		) {
+			$this->save_categories();
 
 			$data = $this->get_export_data();
 
@@ -226,7 +236,7 @@ class PD_CustomerData_Page {
 					<tr valign="top">
 						<th scope="row">List Type</th>
 						<td>
-							<select name="pd-customerdata-which">
+							<select name="pd-customerdata-which" style="min-width: 150px;">
 								<option value="customer-list">Customer List</option>
 								<option value="class-list">Class List</option>
 							</select>
@@ -247,11 +257,12 @@ class PD_CustomerData_Page {
 								'hide_empty'   => false,
 							) );
 
-							if ( $product_categories ) : ?>
-								<select name="pd-categories[]" multiple style="min-height: 300px;">
-
+							if ( $product_categories ) :
+								$saved_categories = get_option( 'pd-customerdata-categories', array() ); ?>
+								<select name="pd-categories[]" multiple style="min-height: 300px; min-width: 150px;">
 									<?php foreach ( $product_categories as $category ) : ?>
-										<option value="<?php echo $category->term_id; ?>">
+										<option value="<?php echo $category->term_id; ?>"
+											<?php echo in_array( $category->term_id, $saved_categories ) ? 'selected' : ''; ?>>
 											<?php echo $category->name; ?>
 										</option>
 									<?php endforeach; ?>
