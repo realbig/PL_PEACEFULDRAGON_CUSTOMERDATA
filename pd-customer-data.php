@@ -3,7 +3,7 @@
 /*
 Plugin Name: Peaceful Dragon Customer Data
 Description: A brief description of the Plugin.
-Version: 1.0.0
+Version: 1.0.1
 Author: joelworsham
 Author URI: http://realbigmarketing.com
 */
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'PD_CUSTOMERDATA_VERSION', '1.0.0' );
+define( 'PD_CUSTOMERDATA_VERSION', '1.0.1' );
 define( 'PD_CUSTOMERDATA_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PD_CUSTOMERDATA_URL', plugins_url( '', __FILE__ ) );
 
